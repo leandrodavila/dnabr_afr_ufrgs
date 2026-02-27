@@ -52,15 +52,22 @@ with st.sidebar:
     # Mostrar ambiente detectado
     if USE_JAR:
         st.info("🐳 Ambiente: Docker/Cloud (Render.com)")
+        # No ambiente cloud, mostrar o path mas desabilitar edição
+        st.text_input(
+            "Caminho do Haplogrep3",
+            value=DEFAULT_HAPLOGREP_PATH,
+            disabled=True,
+            help="Path configurado automaticamente no ambiente Docker"
+        )
+        haplogrep_path = DEFAULT_HAPLOGREP_PATH
     else:
         st.info("💻 Ambiente: Local Windows")
-
-    # Caminho do haplogrep3
-    haplogrep_path = st.text_input(
-        "Caminho do Haplogrep3",
-        value=DEFAULT_HAPLOGREP_PATH,
-        help="Caminho completo para o executável ou JAR do Haplogrep3"
-    )
+        # No ambiente local, permitir edição do caminho
+        haplogrep_path = st.text_input(
+            "Caminho do Haplogrep3",
+            value=DEFAULT_HAPLOGREP_PATH,
+            help="Caminho completo para o executável do Haplogrep3"
+        )
 
     # Seleção da árvore filogenética
     st.subheader("Árvore Filogenética")
