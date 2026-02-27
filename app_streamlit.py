@@ -35,15 +35,31 @@ usando a ferramenta Haplogrep3 com árvores filogenéticas atualizadas.
 
 st.divider()
 
+# Detectar ambiente (Docker/Cloud vs Local Windows)
+if os.path.exists("/app/haplogrep/haplogrep3.jar"):
+    # Ambiente Docker/Cloud (Render.com)
+    DEFAULT_HAPLOGREP_PATH = "/app/haplogrep/haplogrep3.jar"
+    USE_JAR = True
+else:
+    # Ambiente local Windows
+    DEFAULT_HAPLOGREP_PATH = "C:/repos/dnabr_afr/haplogrep/haplogrep3.exe"
+    USE_JAR = False
+
 # Sidebar com configurações
 with st.sidebar:
     st.header("⚙️ Configurações")
 
+    # Mostrar ambiente detectado
+    if USE_JAR:
+        st.info("🐳 Ambiente: Docker/Cloud (Render.com)")
+    else:
+        st.info("💻 Ambiente: Local Windows")
+
     # Caminho do haplogrep3
     haplogrep_path = st.text_input(
         "Caminho do Haplogrep3",
-        value="C:/repos/dnabr_afr/haplogrep/haplogrep3.exe",
-        help="Caminho completo para o executável do Haplogrep3"
+        value=DEFAULT_HAPLOGREP_PATH,
+        help="Caminho completo para o executável ou JAR do Haplogrep3"
     )
 
     # Seleção da árvore filogenética
@@ -178,7 +194,8 @@ if uploaded_file and process_button:
             # Inicializar o wrapper
             wrapper = Haplogrep3Wrapper(
                 haplogrep_path=haplogrep_path,
-                default_tree=selected_tree
+                default_tree=selected_tree,
+                use_jar=USE_JAR
             )
 
             # Converter métrica para enum

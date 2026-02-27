@@ -67,37 +67,28 @@ USE_JAR=true
 
 ## 🔧 Atualizar App Streamlit para usar JAR
 
-Modifique o `app_streamlit.py` para detectar automaticamente:
+✅ **JÁ CONFIGURADO!** O `app_streamlit.py` detecta automaticamente o ambiente:
 
 ```python
-import os
-
-# Detectar ambiente
+# Detectar ambiente (Docker/Cloud vs Local Windows)
 if os.path.exists("/app/haplogrep/haplogrep3.jar"):
-    # Ambiente Docker/Cloud
-    haplogrep_path = "/app/haplogrep/haplogrep3.jar"
-    use_jar = True
-    default_path = "/app/haplogrep/haplogrep3.jar"
+    # Ambiente Docker/Cloud (Render.com)
+    DEFAULT_HAPLOGREP_PATH = "/app/haplogrep/haplogrep3.jar"
+    USE_JAR = True
 else:
     # Ambiente local Windows
-    haplogrep_path = "C:/repos/dnabr_afr/haplogrep/haplogrep3.exe"
-    use_jar = False
-    default_path = "C:/repos/dnabr_afr/haplogrep/haplogrep3.exe"
+    DEFAULT_HAPLOGREP_PATH = "C:/repos/dnabr_afr/haplogrep/haplogrep3.exe"
+    USE_JAR = False
 
-# Na sidebar
-haplogrep_path = st.text_input(
-    "Caminho do Haplogrep3",
-    value=default_path,
-    help="Caminho completo para o executável ou JAR do Haplogrep3"
-)
-
-# Ao inicializar wrapper
+# O wrapper é inicializado com:
 wrapper = Haplogrep3Wrapper(
     haplogrep_path=haplogrep_path,
     default_tree=selected_tree,
-    use_jar=use_jar  # Novo parâmetro
+    use_jar=USE_JAR  # Automaticamente True no Docker
 )
 ```
+
+**Não é necessário configurar nada manualmente!** O app detecta automaticamente se está rodando no Render.com.
 
 ---
 
