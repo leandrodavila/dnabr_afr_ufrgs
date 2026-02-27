@@ -1,0 +1,16 @@
+# Docker Compose para desenvolvimento local
+version: '3.8'
+
+services:
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      # Montar volumes para desenvolvimento
+      - ./uploads:/app/uploads
+      - ./results:/app/results
+      - ./VCFs:/app/VCFs
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

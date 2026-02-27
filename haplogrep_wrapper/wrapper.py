@@ -65,17 +65,19 @@ class Haplogrep3Wrapper:
     def __init__(
         self,
         haplogrep_path: str,
-        default_tree: str = "phylotree-fu-rcrs@1.2"
+        default_tree: str = "phylotree-fu-rcrs@1.2",
+        use_jar: bool = False
     ):
         """
         Initialize the Haplogrep3 wrapper.
 
         Args:
-            haplogrep_path: Path to the haplogrep3 executable
+            haplogrep_path: Path to the haplogrep3 executable or JAR file
             default_tree: Default classification tree to use
+            use_jar: If True, treats haplogrep_path as JAR file and uses java -jar
 
         Raises:
-            FileNotFoundError: If haplogrep3 executable is not found
+            FileNotFoundError: If haplogrep3 executable/JAR is not found
         """
         self.haplogrep_path = Path(haplogrep_path)
 
@@ -85,6 +87,7 @@ class Haplogrep3Wrapper:
             )
 
         self.default_tree = default_tree
+        self.use_jar = use_jar
 
     def get_available_trees(self) -> List[str]:
         """
@@ -159,13 +162,24 @@ class Haplogrep3Wrapper:
             raise FileNotFoundError(f"Input file not found: {input_path}")
 
         # Build command
-        cmd = [
-            str(self.haplogrep_path),
-            "classify",
-            "--in", str(input_path),
-            "--out", str(output_path),
-            "--tree", tree or self.default_tree
-        ]
+        if self.use_jar:
+            # Use Java to run JAR file
+            cmd = [
+                "java", "-jar", str(self.haplogrep_path),
+                "classify",
+                "--in", str(input_path),
+                "--out", str(output_path),
+                "--tree", tree or self.default_tree
+            ]
+        else:
+            # Use executable directly
+            cmd = [
+                str(self.haplogrep_path),
+                "classify",
+                "--in", str(input_path),
+                "--out", str(output_path),
+                "--tree", tree or self.default_tree
+            ]
 
         # Add optional parameters
         if metric:
