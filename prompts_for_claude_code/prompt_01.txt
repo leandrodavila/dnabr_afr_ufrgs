@@ -1,0 +1,13 @@
+Context:
+
+I need to create a python application that will evaluate the VCF files (stored in the folder C:\repos\dnabr_afr\VCFs) and map the haplogroup for each one using the haloprogrep3 CLI application.
+The haplogrep3.exe is already installed in the folder C:\repos\dnabr_afr\haplogrep
+The documentation of haplogrep3 can be found here:
+-	https://haplogrep.readthedocs.io/en/latest/quickstart/
+-	https://haplogrep.readthedocs.io/en/latest/parameters/
+
+First tasks for you:
+
+(1)	Create a readable wrapper to use haplogrep3 in python.
+(2)	Also, create a .md file with the details and examples of usage this wrapper in python projects.
+(3)	Structure the folder according to best practices for python projects.

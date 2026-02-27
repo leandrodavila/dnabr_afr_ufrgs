@@ -46,4 +46,10 @@ VCFs/*.vcf
 VCFs/*.vcf.gz
 results/
 uploads/
-*.txt
+
+# Result text files (but not requirements.txt)
+results/*.txt
+uploads/*.txt
+VCFs/*.txt
+haplogrep/trees/**/*.txt
+!requirements.txt

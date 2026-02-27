@@ -1,0 +1,15 @@
+# VCF parsing - PyVCF3 works well on Windows (pure Python)
+PyVCF3>=1.0.3
+requests
+beautifulsoup4
+lxml
+pandas
+numpy
+
+# Streamlit for web interface
+streamlit>=1.28.0
+
+# Add other dependencies here
+# Example:
+# numpy>=1.21.0
+# pandas>=1.3.0
