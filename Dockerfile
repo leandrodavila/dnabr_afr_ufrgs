@@ -7,6 +7,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     default-jre \
     wget \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Verificar instalação do Java
@@ -27,20 +28,20 @@ COPY .streamlit/ ./.streamlit/
 # Instalar o wrapper em modo desenvolvimento
 RUN pip install -e .
 
-# Baixar Haplogrep3 JAR
-# Nota: Ajuste a URL para a versão mais recente
+# Baixar e extrair Haplogrep3
 RUN mkdir -p haplogrep && \
-    wget -O haplogrep/haplogrep3.jar \
-    https://github.com/genepi/haplogrep3/releases/download/v3.2.2/haplogrep3.jar
+    cd haplogrep && \
+    wget https://github.com/genepi/haplogrep3/releases/download/v3.2.2/haplogrep3-3.2.2-linux.zip && \
+    unzip haplogrep3-3.2.2-linux.zip && \
+    rm haplogrep3-3.2.2-linux.zip && \
+    ls -la && \
+    cd ..
 
 # Criar diretórios necessários
 RUN mkdir -p uploads results VCFs
 
 # Expor porta do Streamlit
 EXPOSE 8501
-
-# Health check
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
 # Comando para executar a aplicação
 CMD ["streamlit", "run", "app_streamlit.py", "--server.port=8501", "--server.address=0.0.0.0"]
