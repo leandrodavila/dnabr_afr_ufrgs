@@ -15,9 +15,10 @@ from dataclasses import dataclass
 
 class ClassificationMetric(Enum):
     """Classification metrics supported by Haplogrep3."""
-    KULCZYNSKI = "kulczynski"  # Default metric
-    HAMMING = "hamming"
-    JACCARD = "jaccard"
+    KULCZYNSKI = "KULCZYNSKI"  # Default metric
+    HAMMING = "HAMMING"
+    JACCARD = "JACCARD"
+    KIMURA = "KIMURA"
 
 
 @dataclass

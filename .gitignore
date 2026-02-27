@@ -45,4 +45,5 @@ Thumbs.db
 VCFs/*.vcf
 VCFs/*.vcf.gz
 results/
+uploads/
 *.txt

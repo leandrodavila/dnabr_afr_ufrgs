@@ -152,6 +152,7 @@ python examples/haplogrep_example.py
   - `KULCZYNSKI`: Default measure
   - `HAMMING`: Hamming distance
   - `JACCARD`: Jaccard index
+  - `KIMURA`: Kimura distance
 
 - **`Haplogrep3Result`**: Result dataclass with execution details
 

@@ -223,6 +223,7 @@ Available classification metrics:
 - `ClassificationMetric.KULCZYNSKI` - Default Kulczynski measure
 - `ClassificationMetric.HAMMING` - Hamming distance
 - `ClassificationMetric.JACCARD` - Jaccard index
+- `ClassificationMetric.KIMURA` - Kimura distance
 
 **Example:**
 ```python
