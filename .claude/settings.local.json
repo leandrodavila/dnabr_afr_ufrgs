@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:haplogrep.readthedocs.io)",
+      "Bash(C:/repos/dnabr_afr/haplogrep/haplogrep3.exe trees)"
+    ]
+  }
+}
